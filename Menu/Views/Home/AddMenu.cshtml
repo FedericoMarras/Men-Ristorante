@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Aggiungi Menu";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+
+<style>
+  .button {
+        background-color: Black;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 15px;
+    }
+</style>
+
+@using(Html.BeginForm("AddMenu","Home",FormMethod.Post)) {
+    <div class="Container">
+        <div class="form">
+            <div class="col-md-3">
+                <label>Primo</label>
+                <input type="text" name="_primo" placeholder="Primo" required />
+            </div>
+            <div class="col-md-3">
+                <label>Secondo</label>
+                <input type="text" name="_secondo" placeholder="Secondo" required />
+            </div>
+            <div class="col-md-3">
+                <label>Contorno</label>
+                <input type="text" name="_contorno" placeholder="Contorno" required />
+            </div>
+            <div class="col-md-3">
+                <label>Dolce</label>
+                <input type="text" name="_dolce" placeholder="Dolce" required />
+            </div>
+            <div class="col-md-6">
+                <label>Giorno</label> <br />
+                <input type="date" name="_giorno" placeholder="Giorno" required />
+            </div>
+            <div class="col-md-6">
+                <label>Pranzo/Cena</label> <br />
+                <input type="text" name="_pasto" placeholder="Pranzo" required />
+            </div>
+        </div>
+    </div> 
+
+
+
+    <input type="submit" class="button" value="Inserisci Menu" style="font-size:14px;float:right;" />
+
+}
