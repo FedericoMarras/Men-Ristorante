@@ -7,19 +7,25 @@ using Interfaces;
 using Menu.Models;
 namespace Menu.Controllers {
 	public class HomeController : Controller {
-	
+		DomainModel dm = new DomainModel();
 		public ActionResult Index() {
 			return View();
 		}
 
-		public ActionResult About() {
-			ViewBag.Message = "Your application description page.";
 
+		public ActionResult ElencoMenu() {
+			ViewBag.Menu = dm.ListaMenu();
 			return View();
 		}
 
 		public ActionResult AddMenu() {		
 			
+			return View();
+		}
+
+		public ActionResult DettaglioMenu(int id) {		
+		ViewBag.Menu = dm.VisualizzaMenu(id);
+
 			return View();
 		}
 
@@ -35,7 +41,7 @@ namespace Menu.Controllers {
 				Giorno = _giorno,
 				Pasto = _pasto
 			};
-			DomainModel dm = new DomainModel();
+			
 			dm.AddMenu(M);
 			
 			return View("AddMenu");

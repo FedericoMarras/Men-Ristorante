@@ -10,8 +10,8 @@ public interface iDao {
 		
 
 	void AddMenu(MenuObj m);   //Metodo per l'aggiunta di un Menù
-	List<MenuObj> ListaMenu(int id);  //Metodo per la visualizzazione dell'elenco dei menù completo
-	void VisualizzaMenu(MenuObj menu);   //Visualizzazione del dettaglio del menù
+	List<MenuObj> ListaMenu();  //Metodo per la visualizzazione dell'elenco dei menù completo
+	MenuObj VisualizzaMenu(int id);   //Visualizzazione del dettaglio del menù
 	
 	}
 
@@ -20,8 +20,8 @@ public interface iDao {
 
 
 	public void AddMenu(MenuObj m){
-				
-	SqlConnection connection = new SqlConnection(GetConnection());		
+					SqlConnection connection = new SqlConnection(GetConnection());		
+
 				try{				 
 				  connection.Open();
 				SqlCommand cmd = new SqlCommand("AddMenu",connection);	
@@ -48,12 +48,62 @@ public interface iDao {
 			}
 		}
 
-		public List<MenuObj> ListaMenu(int id) {
-			throw new NotImplementedException();
+		public List<MenuObj> ListaMenu() {
+			SqlConnection connection = new SqlConnection(GetConnection());		
+
+			try{
+			String sql = "SELECT Id,Giorno,Pasto FROM Menu";
+			SqlCommand cmd = new SqlCommand(sql,connection);	
+            connection.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<MenuObj> model = new List<MenuObj>();
+            while(reader.Read())
+            {
+              var details = new MenuObj();
+                details.Id = reader.GetInt32(0);
+                details.Giorno = reader.GetDateTime(1);
+                details.Pasto =  reader.GetString(2);       
+                model.Add(details);
+            }
+			reader.Close();
+			connection.Close();
+			return model;
+			}catch(SqlException){
+				throw new Exception("Errore server!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
-		public void VisualizzaMenu(MenuObj menu) {
-			throw new NotImplementedException();
+		public MenuObj VisualizzaMenu(int id) {
+			SqlConnection connection = new SqlConnection(GetConnection());
+			try{
+				String sql = $"SELECT Id,Primo,Secondo,Contorno,Dolce,Giorno,Pasto FROM Menu WHERE Id = {id}";
+			SqlCommand cmd = new SqlCommand(sql,connection);	
+            connection.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            MenuObj singolo = new MenuObj();
+            while(reader.Read())
+            {
+              
+                singolo.Id = reader.GetInt32(0);
+				singolo.Primo =  reader.GetString(1);       
+				singolo.Secondo =  reader.GetString(2);       
+				singolo.Contorno =  reader.GetString(3);       
+			    singolo.Dolce =  reader.GetString(4);       
+                singolo.Giorno = reader.GetDateTime(5);
+                singolo.Pasto =  reader.GetString(6);       
+               
+            }
+			reader.Close();
+			connection.Close();
+			return singolo;
+			} catch(SqlException){
+				throw new Exception("Errore nella visualizzazione del dettaglio");
+			} catch(Exception e){
+				throw e;
+			}
+			
 		}
 
 		 private string GetConnection()
@@ -62,7 +112,7 @@ public interface iDao {
             builder.DataSource = @"(localdb)\MSSQLLocalDB";
             builder.InitialCatalog = "Ristorante";
             return builder.ConnectionString;
-        }  /*Genero connessione*/
+        } 
 	}
 }
 

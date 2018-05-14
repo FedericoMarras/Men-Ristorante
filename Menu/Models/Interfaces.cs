@@ -6,8 +6,8 @@ namespace Interfaces {
 	public interface iMenu {
 	
 	void AddMenu(MenuObj m);   //Metodo per l'aggiunta di un Menù
-	List<MenuObj> ListaMenu(int id);  //Metodo per la visualizzazione dell'elenco dei menù completo
-	void VisualizzaMenu(MenuObj menu);   //Visualizzazione del dettaglio del menù
+	List<MenuObj> ListaMenu();  //Metodo per la visualizzazione dell'elenco dei menù completo
+	MenuObj VisualizzaMenu(int id);   //Visualizzazione del dettaglio del menù
 	
 	}
 

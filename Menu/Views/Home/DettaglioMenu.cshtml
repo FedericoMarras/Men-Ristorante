@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Dettaglio menu";
+}
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+
+<div class=" container">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Primo</th>
+                <th scope="col">Secondo</th>
+                <th scope="col">Contorno</th>
+                <th scope="col">Dolce</th>
+                <th scope="col">Giorno</th>
+                <th scope="col">Pasto</th>
+
+
+            </tr>
+
+        </thead>
+        <tbody>
+
+            
+            <tr>
+
+                <td>  @ViewBag.Menu.Id </td>
+                <td>  @ViewBag.Menu.Primo </td>
+                <td>  @ViewBag.Menu.Secondo</td>
+
+                <td>  @ViewBag.Menu.Contorno </td>
+                <td>  @ViewBag.Menu.Dolce </td>
+                <td>  @ViewBag.Menu.Giorno </td>
+                <td>  @ViewBag.Menu.Pasto </td>
+
+
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+   

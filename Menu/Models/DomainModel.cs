@@ -18,12 +18,24 @@ namespace Menu.Models {
 			}
         }
 					
-		public List<Interfaces.MenuObj> ListaMenu(int id) {
-			throw new NotImplementedException();
+		public List<Interfaces.MenuObj> ListaMenu() {
+			try{
+				return DAO.ListaMenu();
+			}catch(SystemException){
+				throw new Exception("Errore nella visualizzazione dell'elenco!");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 
-		public void VisualizzaMenu(Interfaces.MenuObj menu) {
-			throw new NotImplementedException();
+		public MenuObj VisualizzaMenu(int id) {		
+			try{
+				return DAO.VisualizzaMenu(id);
+			}catch(SystemException){
+				throw new Exception("Errore nella visualizzazione del dettaglio DM");
+			}catch(Exception e){
+				throw e;
+			}
 		}
 	}
 }
