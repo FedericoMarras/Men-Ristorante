@@ -52,8 +52,9 @@ public interface iDao {
 			SqlConnection connection = new SqlConnection(GetConnection());		
 
 			try{
-			String sql = "SELECT Id,Giorno,Pasto FROM Menu";
-			SqlCommand cmd = new SqlCommand(sql,connection);	
+			SqlCommand cmd = new SqlCommand("ElencoMenu",connection);	
+			cmd.CommandType = System.Data.CommandType.StoredProcedure;
+			
             connection.Open();
             SqlDataReader reader = cmd.ExecuteReader();
             List<MenuObj> model = new List<MenuObj>();
@@ -78,9 +79,16 @@ public interface iDao {
 		public MenuObj VisualizzaMenu(int id) {
 			SqlConnection connection = new SqlConnection(GetConnection());
 			try{
-				String sql = $"SELECT Id,Primo,Secondo,Contorno,Dolce,Giorno,Pasto FROM Menu WHERE Id = {id}";
-			SqlCommand cmd = new SqlCommand(sql,connection);	
-            connection.Open();
+			connection.Open();
+			SqlCommand cmd = new SqlCommand("VisualizzaMenu",connection);
+			cmd.CommandType = System.Data.CommandType.StoredProcedure;
+			SqlParameter[] parameters = { 
+					new SqlParameter("@id",id)
+				};
+			cmd.Parameters.AddRange(parameters) ;
+			cmd.ExecuteNonQuery();
+				
+            
             SqlDataReader reader = cmd.ExecuteReader();
             MenuObj singolo = new MenuObj();
             while(reader.Read())
